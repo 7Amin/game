@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 checkpoints/
-data/
 .ssh
 temp_data/
 result/
@@ -133,4 +132,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/data/
