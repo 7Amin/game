@@ -23,6 +23,6 @@ def get_dataset(data_number=1, base_url=dataset_config.PATH, image_size=(512, 51
         image = cv2.resize(cv2.imread(path, cv2.IMREAD_COLOR), image_size)
         X.append(image)
     X = np.array(X) / 255.0
-    data_input, data_input_test, data_output, data_output_test = train_test_split(X, X, random_state=1, train_size=.90)
+    data_input, data_input_test, data_output, data_output_test = train_test_split(X, X, random_state=1, train_size=.10)
 
     return data_input, data_input_test, data_output, data_output_test
