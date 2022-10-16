@@ -13,6 +13,7 @@ class PerformancePlotCallback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs=None):
         total_data = len(self.dataset)
         image_number = random.randint(0, total_data - 1)
+        image_number = random.randint(0, total_data - 1)
         image_number_1 = random.randint(0, total_data - 1)
         # np.random.seed(42)
         y_pred = self.model.predict(self.dataset)

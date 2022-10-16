@@ -85,7 +85,7 @@ early_stop = EarlyStopping(
     mode="min",
     verbose=1,
     patience=5,
-    min_delta=0.000001,
+    min_delta=0.0001,
     restore_best_weights=False)
 
 checkpoint = ModelCheckpoint(
@@ -116,7 +116,7 @@ history = model.fit(
     validation_freq=1,
     callbacks=[
         tboard_callback,
-        # early_stop,
+        early_stop,
         display_data,
         reduce_lr,
         checkpoint,
