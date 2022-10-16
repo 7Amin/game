@@ -56,8 +56,8 @@ except Exception as e:
 hdf5_model_path = HDF5_MODEL_PATH.format(args.model, args.dataset)
 
 model = create_model(args.model)
-model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=args.learning_rate),
-              loss=mean_absolute_error,
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=args.learning_rate),
+              loss=mean_squared_error,
               metrics=['mse', 'mae', 'mape'])
 
 if True:
