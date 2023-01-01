@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.python.keras import layers
-from tensorflow.python.keras.optimizers import adam_v2
+from tensorflow.keras import layers
+from tensorflow.keras.optimizers import Adam
 from model.basic_model import BasicModel
 import random
 
@@ -87,7 +87,7 @@ def transformer_encoder(
     attention_type="external_attention",
 ):
     residual_1 = x
-    x = layers.LayerNormalization(epsilon=1e-5)(x)
+    x = layers.BatchNormalization(epsilon=1e-5)(x)
     if attention_type == "external_attention":
         x = external_attention(
             x,
@@ -103,7 +103,7 @@ def transformer_encoder(
         )(x, x)
     x = layers.add([x, residual_1])
     residual_2 = x
-    x = layers.LayerNormalization(epsilon=1e-5)(x)
+    x = layers.BatchNormalization(epsilon=1e-5)(x)
     x = mlp(x, embedding_dim, mlp_dim)
     x = layers.add([x, residual_2])
     return x
@@ -111,11 +111,9 @@ def transformer_encoder(
 
 class Transformer(BasicModel):
     def __init__(self, state_size, action_size, update_rate):
-        super().__init__(state_size, action_size, update_rate)
-        self.name = "DQN"
-
+        self.name = "Transformer"
         self.patch_size = 2  # Size of the patches to be extracted from the input images.
-        self.num_patches = (self.state_size[0] // self.patch_size) ** 2  # Number of patch
+        self.num_patches = (state_size[0] // self.patch_size) ** 2  # Number of patch
         self.attention_type = "self_attention"
         self.embedding_dim = 64  # Number of hidden units.
         self.mlp_dim = 64
@@ -124,6 +122,7 @@ class Transformer(BasicModel):
         self.attention_dropout = 0.2
         self.projection_dropout = 0.2
         self.num_transformer_blocks = 8
+        super().__init__(state_size, action_size, update_rate)
 
     def build_network(self):
         inputs = layers.Input(shape=self.state_size)
@@ -150,5 +149,5 @@ class Transformer(BasicModel):
         x = layers.Dense(512, activation='relu')(x)
         outputs = layers.Dense(self.action_size, activation="softmax")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
-        model.compile(loss='mse', optimizer=adam_v2.Adam())
+        model.compile(loss='mse', optimizer=Adam())
         return model

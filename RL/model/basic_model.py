@@ -3,7 +3,7 @@ import random
 import numpy as np
 
 
-class BasicModel(object):
+class BasicModel:
     def __init__(self, state_size, action_size, update_rate):
         # define the state size
         self.state_size = state_size

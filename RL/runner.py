@@ -1,7 +1,5 @@
 import tensorflow as tf
 import argparse
-import cv2
-import random
 import gym
 import numpy as np
 from util.state_prepresentor import preprocess_state
@@ -16,7 +14,7 @@ parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
-parser.add_argument("-m", "--model", type=str, default="dqn", choices=["dqn", "transformer"],
+parser.add_argument("-m", "--model", type=str, default="transformer", choices=["dqn", "transformer"],
                     help="Number of model")
 parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
                     metavar='>= 0', help="Learning rate")
@@ -85,8 +83,6 @@ for i in range(num_episodes):
             print('Episode: ', i, ',' 'Return', Return)
             break
 
-        #if the number of transistions in the replay buffer is greater than batch size
-        #then train the network
         if len(dqn.replay_buffer) > batch_size:
             dqn.train(batch_size)
 
