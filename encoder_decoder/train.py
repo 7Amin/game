@@ -38,7 +38,7 @@ parser.add_argument("-t", "--type", type=str, default="local", choices=["local",
 parser.add_argument("-m", "--model", type=str, default="unet_vector", choices=["unet_low", "unet_vector", "unet"],
                     help="Number of model")
 parser.add_argument("-d", "--dataset", type=int, default=0, choices=[0, 1, 2, 3], help="Number of dataset")
-parser.add_argument("-dn", "--data_number", type=int, default=1, choices=[1, 2, 3], help="Number of data")
+parser.add_argument("-dn", "--data_number", type=int, default=2, choices=[1, 2, 3], help="Number of data")
 parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
                     metavar='>= 0', help="Learning rate")
 # parser.add_argument('-o', '--output', type=str, help='Output fname to save evaluation results to')

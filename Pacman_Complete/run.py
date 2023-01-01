@@ -271,17 +271,18 @@ class GameController(object):
             y = SCREENHEIGHT - self.fruitCaptured[i].get_height()
             self.screen.blit(self.fruitCaptured[i], (x, y))
 
+        folder_number = 8
         if self.counter == 4:
             datetime_now = datetime.now()
-            pygame.image.save(self.screen, f"./data/2/images/{str(datetime_now)}.jpeg")
+            pygame.image.save(self.screen, f"./data/{str(folder_number)}/images/{str(datetime_now)}.jpeg")
             self.scores[str(datetime_now)] = self.score
             self.actions[str(datetime_now)] = self.pacman.direction
             scores_json_object = json.dumps(self.scores, indent=4)
             actions_json_object = json.dumps(self.actions, indent=4)
-            with open("./data/2/scores.json", "w") as outfile:
+            with open(f"./data/{str(folder_number)}/scores.json", "w") as outfile:
                 json.dump(scores_json_object, outfile)
 
-            with open("./data/2/actions.json", "w") as outfile:
+            with open(f"./data/{str(folder_number)}/actions.json", "w") as outfile:
                 json.dump(actions_json_object, outfile)
             self.counter = 0
 
