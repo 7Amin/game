@@ -16,7 +16,7 @@ parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
-parser.add_argument("-m", "--model", type=str, default="dqn", choices=["dqn"],
+parser.add_argument("-m", "--model", type=str, default="dqn", choices=["dqn", "transformer"],
                     help="Number of model")
 parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
                     metavar='>= 0', help="Learning rate")
