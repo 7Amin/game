@@ -11,8 +11,10 @@ from model.model_factory import get_model
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument("-e", "--num_episodes", type=int, default=2500, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=20000, metavar='>= 0', help="Number of time steps")
+parser.add_argument("-u", "--update_rate", type=int, default=500, metavar='>= 0', help="Update Rate")
 parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
-                    choices=["Breakout-v4"], help="Choose from list")
+                    choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
+                             "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
 parser.add_argument("-m", "--model", type=str, default="dqn", choices=["dqn"],
                     help="Number of model")
@@ -32,10 +34,10 @@ action_size = env.action_space.n
 num_episodes = args.num_episodes
 num_time_steps = args.num_time_steps
 batch_size = args.batch_size
-num_screens = 4
+update_rate = args.update_rate
 model = get_model(args.model)
 
-dqn = model(state_size, action_size)
+dqn = model(state_size, action_size, update_rate)
 done = False
 time_step = 0
 
@@ -66,12 +68,11 @@ for i in range(num_episodes):
 
         # perform the selected action
         next_state, reward, done, truncated, _ = env.step(action)
-        print("action is {} and reward is {}".format(action, reward))
         # preprocess the next state
         next_state = preprocess_state(next_state)
 
         # store the transition information
-        dqn.store_transistion(state, action, reward, next_state, done)
+        dqn.store_transition(state, action, reward, next_state, done)
 
         # update current state to next state
         state = next_state
