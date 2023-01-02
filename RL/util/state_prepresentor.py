@@ -6,7 +6,7 @@ color = np.array([210, 164, 74]).mean()
 def preprocess_state(state):
     # cv2.imwrite("state.png", state)
     # crop and resize the image
-    image = state[9:168:2, ::2]
+    image = state[29:188:2, ::2]
 
     # convert the image to greyscale
     image = image.mean(axis=2)
