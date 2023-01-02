@@ -1,10 +1,8 @@
-import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.python.keras.optimizers import adam_v2
+from tensorflow.keras.optimizers import Adam
 from model.basic_model import BasicModel
-import random
 
 
 class PatchExtract(layers.Layer):
@@ -12,9 +10,8 @@ class PatchExtract(layers.Layer):
         super(PatchExtract, self).__init__(**kwargs)
         self.patch_size = patch_size
 
-    def call(self, images):
+    def call(self, images, **kwargs):
         batch_size = tf.shape(images)[0]
-        print(images.shape)
         patches = tf.image.extract_patches(
             images=images,
             sizes=(1, self.patch_size, self.patch_size, 1),
@@ -22,7 +19,6 @@ class PatchExtract(layers.Layer):
             rates=(1, 1, 1, 1),
             padding="VALID",
         )
-        print(patches.shape)
         patch_dim = patches.shape[-1]
         patch_num = patches.shape[1]
         return tf.reshape(patches, (batch_size, patch_num * patch_num, patch_dim))
@@ -35,7 +31,7 @@ class PatchEmbedding(layers.Layer):
         self.proj = layers.Dense(embed_dim)
         self.pos_embed = layers.Embedding(input_dim=num_patch, output_dim=embed_dim)
 
-    def call(self, patch):
+    def call(self, patch, **kwargs):
         pos = tf.range(start=0, limit=self.num_patch, delta=1)
         return self.proj(patch) + self.pos_embed(pos)
 
@@ -156,5 +152,5 @@ class Transformer(BasicModel):
         x = layers.Dense(512, activation='relu')(x)
         outputs = layers.Dense(self.action_size, activation="softmax")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
-        model.compile(loss='mse', optimizer=adam_v2.Adam())
+        model.compile(loss='mse', optimizer=Adam())
         return model

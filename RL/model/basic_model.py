@@ -62,7 +62,7 @@ class BasicModel:
             Q_values[0][action] = target_Q
             # csv_logger = CSVLogger('./log/log.csv', append=True, separator=';')
             # train the main network
-            self.main_network.fit(state, Q_values, epochs=3, verbose=0)  # callbacks=[csv_logger]
+            self.main_network.fit(state, Q_values, epochs=1, verbose=0)  # callbacks=[csv_logger]
 
     def update_target_network(self, time_step, GAME_NAME):
         self.target_network.set_weights(self.main_network.get_weights())
