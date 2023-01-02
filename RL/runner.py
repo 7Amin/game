@@ -9,7 +9,7 @@ from model.model_factory import get_model
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=200000, metavar='>= 0', help="Number of time steps")
-parser.add_argument("-u", "--update_rate", type=int, default=100, metavar='>= 0', help="Update Rate")
+parser.add_argument("-u", "--update_rate", type=int, default=2500, metavar='>= 0', help="Update Rate")
 parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
@@ -86,5 +86,7 @@ for i in range(num_episodes):
 
         if len(dqn.replay_buffer) > batch_size:
             dqn.train(batch_size)
+    if time_step > 250 * 1000 * 1000 + 10:
+        break
 
 print("frame number is {}".format(time_step))
