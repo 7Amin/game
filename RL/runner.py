@@ -7,14 +7,14 @@ from model.model_factory import get_model
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument("-e", "--num_episodes", type=int, default=2500, metavar='>= 0', help="Number of Episodes")
+parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=20000, metavar='>= 0', help="Number of time steps")
-parser.add_argument("-u", "--update_rate", type=int, default=500, metavar='>= 0', help="Update Rate")
+parser.add_argument("-u", "--update_rate", type=int, default=1000, metavar='>= 0', help="Update Rate")
 parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
-parser.add_argument("-m", "--model", type=str, default="transformer", choices=["dqn", "transformer"],
+parser.add_argument("-m", "--model", type=str, default="dqn", choices=["dqn", "transformer"],
                     help="Number of model")
 # parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
 #                     metavar='>= 0', help="Learning rate")
@@ -59,10 +59,11 @@ for i in range(num_episodes):
 
         # update the target network
         if time_step % dqn.update_rate == 0:
-            dqn.update_target_network()
+            print("frame number is {}".format(time_step))
+            dqn.update_target_network(time_step, GAME_NAME)
 
         # select the action
-        action = dqn.epsilon_greedy(state)
+        action = dqn.epsilon_greedy(state, time_step)
 
         # perform the selected action
         next_state, reward, done, truncated, _ = env.step(action)
@@ -86,3 +87,4 @@ for i in range(num_episodes):
         if len(dqn.replay_buffer) > batch_size:
             dqn.train(batch_size)
 
+print("frame number is {}".format(time_step))

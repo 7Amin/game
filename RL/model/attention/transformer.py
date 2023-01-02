@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
-from tensorflow.keras.optimizers import Adam
+from tensorflow.python.keras.optimizers import adam_v2
 from model.basic_model import BasicModel
 import random
 
@@ -22,6 +22,7 @@ class PatchExtract(layers.Layer):
             rates=(1, 1, 1, 1),
             padding="VALID",
         )
+        print(patches.shape)
         patch_dim = patches.shape[-1]
         patch_num = patches.shape[1]
         return tf.reshape(patches, (batch_size, patch_num * patch_num, patch_dim))
@@ -114,9 +115,6 @@ class Transformer(BasicModel):
     def __init__(self, state_size, action_size, update_rate):
         super().__init__(state_size, action_size, update_rate)
         self.name = "Transformer"
-        self.main_network = self.build_network()
-        self.target_network = self.build_network()
-        self.target_network.set_weights(self.main_network.get_weights())
 
         self.patch_size = 2  # Size of the patches to be extracted from the input images.
         self.num_patches = (state_size[0] // self.patch_size) ** 2  # Number of patch
@@ -128,6 +126,10 @@ class Transformer(BasicModel):
         self.attention_dropout = 0.2
         self.projection_dropout = 0.2
         self.num_transformer_blocks = 8
+
+        self.main_network = self.build_network()
+        self.target_network = self.build_network()
+        self.target_network.set_weights(self.main_network.get_weights())
 
     def build_network(self):
         inputs = layers.Input(shape=self.state_size)
@@ -154,5 +156,5 @@ class Transformer(BasicModel):
         x = layers.Dense(512, activation='relu')(x)
         outputs = layers.Dense(self.action_size, activation="softmax")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
-        model.compile(loss='mse', optimizer=Adam())
+        model.compile(loss='mse', optimizer=adam_v2.Adam())
         return model
