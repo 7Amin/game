@@ -23,14 +23,6 @@ class BasicModel:
         # define the update rate at which we want to update the target network
         self.update_rate = update_rate
 
-        # define the main network
-        self.main_network = self.build_network()
-
-        # define the target network
-        self.target_network = self.build_network()
-
-        # copy the weights of the main network to the target network
-        self.target_network.set_weights(self.main_network.get_weights())
 
     def build_network(self):
         raise NotImplemented

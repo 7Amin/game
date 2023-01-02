@@ -16,8 +16,8 @@ parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
 parser.add_argument("-m", "--model", type=str, default="transformer", choices=["dqn", "transformer"],
                     help="Number of model")
-parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
-                    metavar='>= 0', help="Learning rate")
+# parser.add_argument("-lr", "--learning_rate", type=float, default=0.01,
+#                     metavar='>= 0', help="Learning rate")
 args = parser.parse_args()
 
 np.random.seed(42)

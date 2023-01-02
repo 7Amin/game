@@ -14,6 +14,7 @@ class PatchExtract(layers.Layer):
 
     def call(self, images):
         batch_size = tf.shape(images)[0]
+        print(images.shape)
         patches = tf.image.extract_patches(
             images=images,
             sizes=(1, self.patch_size, self.patch_size, 1),
@@ -111,7 +112,12 @@ def transformer_encoder(
 
 class Transformer(BasicModel):
     def __init__(self, state_size, action_size, update_rate):
+        super().__init__(state_size, action_size, update_rate)
         self.name = "Transformer"
+        self.main_network = self.build_network()
+        self.target_network = self.build_network()
+        self.target_network.set_weights(self.main_network.get_weights())
+
         self.patch_size = 2  # Size of the patches to be extracted from the input images.
         self.num_patches = (state_size[0] // self.patch_size) ** 2  # Number of patch
         self.attention_type = "self_attention"
@@ -122,7 +128,6 @@ class Transformer(BasicModel):
         self.attention_dropout = 0.2
         self.projection_dropout = 0.2
         self.num_transformer_blocks = 8
-        super().__init__(state_size, action_size, update_rate)
 
     def build_network(self):
         inputs = layers.Input(shape=self.state_size)

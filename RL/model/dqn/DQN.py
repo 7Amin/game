@@ -11,6 +11,9 @@ class DQN(BasicModel):
     def __init__(self, state_size, action_size, update_rate):
         super().__init__(state_size, action_size, update_rate)
         self.name = "DQN"
+        self.main_network = self.build_network()
+        self.target_network = self.build_network()
+        self.target_network.set_weights(self.main_network.get_weights())
 
     def build_network(self):
         model = Sequential()
