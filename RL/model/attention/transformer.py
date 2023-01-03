@@ -4,6 +4,9 @@ from tensorflow.keras import layers
 from tensorflow.keras.optimizers import Adam
 from model.basic_model import BasicModel
 
+import random
+import numpy as np
+
 
 class PatchExtract(layers.Layer):
     def __init__(self, patch_size, **kwargs):
@@ -154,3 +157,7 @@ class Transformer(BasicModel):
         model = keras.Model(inputs=inputs, outputs=outputs)
         model.compile(loss='mse', optimizer=Adam())
         return model
+
+    def train(self, batch_size):
+        super().train(batch_size=batch_size)
+        self.clear_buffer()

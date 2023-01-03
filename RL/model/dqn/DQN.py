@@ -3,6 +3,8 @@ from tensorflow.python.keras.layers import Dense, Activation, Flatten, Conv2D
 from tensorflow.python.keras.optimizers import adam_v2
 
 from model.basic_model import BasicModel
+import random
+import numpy as np
 
 
 class DQN(BasicModel):
@@ -31,3 +33,4 @@ class DQN(BasicModel):
         model.compile(loss='mse', optimizer=adam_v2.Adam(learning_rate=0.001))
 
         return model
+

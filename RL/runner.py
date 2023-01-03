@@ -56,6 +56,7 @@ for i in range(num_episodes):
 
         # update the time step
         time_step += 1
+        print(time_step)
 
         # update the target network
         if time_step % dqn.update_rate == 0:

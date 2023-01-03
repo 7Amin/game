@@ -29,6 +29,9 @@ class BasicModel:
     def build_network(self):
         raise NotImplemented
 
+    def clear_buffer(self):
+        self.replay_buffer = deque(maxlen=5000)
+
     def store_transition(self, state, action, reward, next_state, done):
         self.replay_buffer.append((state, action, reward, next_state, done))
 
@@ -45,8 +48,11 @@ class BasicModel:
 
         return np.argmax(Q_values[0])
 
+    def update_target_network(self, time_step, GAME_NAME):
+        self.target_network.set_weights(self.main_network.get_weights())
+        self.target_network.save('./checkpoints/{}_{}_{}.h5'.format(self.name, GAME_NAME, time_step))
+
     def train(self, batch_size):
-        # sample a mini batch of transition from the replay buffer
         minibatch = random.sample(self.replay_buffer, batch_size)
 
         # compute the Q value using the target network
@@ -63,7 +69,3 @@ class BasicModel:
             # csv_logger = CSVLogger('./log/log.csv', append=True, separator=';')
             # train the main network
             self.main_network.fit(state, Q_values, epochs=1, verbose=0)  # callbacks=[csv_logger]
-
-    def update_target_network(self, time_step, GAME_NAME):
-        self.target_network.set_weights(self.main_network.get_weights())
-        self.target_network.save('./checkpoints/{}_{}_{}.h5'.format(self.name, GAME_NAME, time_step))
