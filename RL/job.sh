@@ -11,4 +11,4 @@ module load python/3.7-2019.10
 module spider cuda
 module load cuda/10.1.168 miniconda3
 source activate venv
-PYTHONPATH=. python3 runner.py -m "transformer"
+PYTHONPATH=. python3 runner.py -m "transformer" -u 2500 -g "Breakout-v4" -b 8
