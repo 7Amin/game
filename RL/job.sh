@@ -6,9 +6,9 @@
 #SBATCH --ntasks-per-node=4
 #SBATCH --gpus-per-node=1 --gpu_cmode=exclusive
 #SBATCH --mem=100gb
-cd /users/PAS0536/aminr8/game/encoder_decoder
+cd /users/PAS0536/aminr8/game/RL
 module load python/3.7-2019.10
 module spider cuda
 module load cuda/10.1.168 miniconda3
 source activate venv
-PYTHONPATH=.. python3 train.py -m "unet_vector"
+PYTHONPATH=. python3 runner.py -m "transformer"
