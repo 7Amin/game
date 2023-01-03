@@ -42,7 +42,6 @@ moviepy==1.0.3
 mujoco==2.2.0
 mujoco-py==2.1.2.14
 nltk==3.7
-numpy==1.23.3
 nvidia-cublas-cu11==11.10.3.66
 nvidia-cuda-nvrtc-cu11==11.7.99
 nvidia-cuda-runtime-cu11==11.7.99
