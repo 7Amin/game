@@ -111,8 +111,8 @@ def transformer_encoder(
 
 
 class Transformer(BasicModel):
-    def __init__(self, state_size, action_size, update_rate):
-        super().__init__(state_size, action_size, update_rate)
+    def __init__(self, state_size, action_size, update_rate, sequence_state):
+        super().__init__(state_size, action_size, update_rate, sequence_state)
         self.name = "Transformer"
 
         self.patch_size = 2  # Size of the patches to be extracted from the input images.

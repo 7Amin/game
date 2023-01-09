@@ -7,6 +7,7 @@ import pdb
 import matplotlib.pyplot as plt
 
 import random
+from model.basic_model import BasicModel
 
 
 class qkv_transform(nn.Conv1d):
@@ -509,3 +510,36 @@ def attention_with_position(pretrained=False, **kwargs):
 def attention_with_position_and_gate(pretrained=False, **kwargs):
     model = AxialAttentionModel(AxialPositionGateBlock, [1, 2, 4, 1], s=0.125, **kwargs)
     return model
+
+
+class AxialAttentionWithoutPositionModel(BasicModel):
+    def __init__(self, state_size, action_size, update_rate, sequence_state):
+        super().__init__(state_size, action_size, update_rate, sequence_state)
+        self.name = "AxialAttentionWithoutPositionModel"
+
+        self.main_network = self.build_network()
+        self.target_network = self.build_network()
+        self.target_network.set_weights(self.main_network.get_weights())
+
+    def build_network(self):
+        model = AxialAttentionModel(AxialWithoutPositionBlock, [1, 2, 4, 1], s=0.125)
+        return model
+
+    def train(self, batch_size):
+        minibatch = random.sample(self.replay_buffer, batch_size)
+
+        # compute the Q value using the target network
+        for state, action, reward, next_state, done in minibatch:
+            if not done:
+                target_Q = (reward + self.gamma * np.amax(self.target_network.predict(next_state)))
+            else:
+                target_Q = reward
+
+            # compute the Q value using the main network
+            Q_values = self.main_network.predict(state)
+
+            Q_values[0][action] = target_Q
+            # csv_logger = CSVLogger('./log/log.csv', append=True, separator=';')
+            # train the main network
+            self.main_network.fit(state, Q_values, epochs=1, verbose=0)  # callbacks=[csv_logger]
+        self.clear_buffer()

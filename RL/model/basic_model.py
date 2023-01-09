@@ -6,13 +6,15 @@ from keras.callbacks import CSVLogger
 
 
 class BasicModel:
-    def __init__(self, state_size, action_size, update_rate):
+    def __init__(self, state_size, action_size, update_rate, sequence_state=1):
         self.name = "Base"
         # define the state size
         self.state_size = state_size
 
         # define the action size
         self.action_size = action_size
+
+        self.sequence_state = sequence_state
 
         # define the replay buffer
         self.replay_buffer = deque(maxlen=5000)

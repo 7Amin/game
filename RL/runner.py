@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=200000, metavar='>= 0', help="Number of time steps")
 parser.add_argument("-u", "--update_rate", type=int, default=2500, metavar='>= 0', help="Update Rate")
+parser.add_argument("-seq", "--sequence_state", type=int, default=1, metavar='>= 0', help="Sequence State")
 parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
@@ -35,7 +36,7 @@ batch_size = args.batch_size
 update_rate = args.update_rate
 model = get_model(args.model)
 
-dqn = model(state_size, action_size, update_rate)
+dqn = model(state_size, action_size, update_rate, args.sequence_state)
 done = False
 time_step = 0
 
@@ -84,7 +85,7 @@ for i in range(num_episodes):
             print('Episode: ', i, ',' 'Return', Return)
             break
 
-        if len(dqn.replay_buffer) > batch_size:
+        if len(dqn.replay_buffer) > batch_size * args.sequence_state:
             dqn.train(batch_size)
     if time_step > 250 * 1000 * 1000 + 10:
         break

@@ -8,8 +8,8 @@ import numpy as np
 
 
 class DQN(BasicModel):
-    def __init__(self, state_size, action_size, update_rate):
-        super().__init__(state_size, action_size, update_rate)
+    def __init__(self, state_size, action_size, update_rate, sequence_state):
+        super().__init__(state_size, action_size, update_rate, sequence_state)
         self.name = "DQN"
         self.main_network = self.build_network()
         self.target_network = self.build_network()
