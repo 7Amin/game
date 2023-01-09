@@ -25,7 +25,8 @@ np.random.seed(42)
 tf.compat.v1.random.set_random_seed(42)
 GAME_NAME = args.game_name
 
-env = gym.make(GAME_NAME, render_mode="human")
+# env = gym.make(GAME_NAME, render_mode="human")
+env = gym.make(GAME_NAME, render_mode="rgb_array")
 state_size = (80, 80, 1)
 action_size = env.action_space.n
 
