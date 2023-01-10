@@ -54,7 +54,7 @@ batch_size = args.batch_size
 update_rate = args.update_rate
 model = get_model(args.model)
 
-file_path = f"{GAME_NAME}_{args.model}.json"
+file_path = f"./json_files/{GAME_NAME}_{args.model}.json"
 model_path = './checkpoints/{}_{}.h5'.format(args.model, GAME_NAME)
 
 
