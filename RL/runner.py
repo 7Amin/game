@@ -6,14 +6,28 @@ import os
 import numpy as np
 from util.state_prepresentor import preprocess_state
 from model.model_factory import get_model
+from keras import backend as K
+from tensorflow.python.client import device_lib
 
+print(device_lib.list_local_devices())
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+# tf.debugging.set_log_device_placement(True)
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    try:
+        tf.config.set_visible_devices(gpus[0], 'GPU')
+        logical_gpus = tf.config.list_logical_devices('GPU')
+        print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPU")
+    except RuntimeError as e:
+        print("this is error Amin")
+        print(e)
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=200000, metavar='>= 0', help="Number of time steps")
-parser.add_argument("-u", "--update_rate", type=int, default=2500, metavar='>= 0', help="Update Rate")
+parser.add_argument("-u", "--update_rate", type=int, default=3, metavar='>= 0', help="Update Rate")
 parser.add_argument("-seq", "--sequence_state", type=int, default=1, metavar='>= 0', help="Sequence State")
-parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
+parser.add_argument("-g", "--game_name", type=str, default='Pong-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
@@ -77,7 +91,7 @@ for i in range(num_episodes):
         # update the target network
         if time_step % dqn.update_rate == 0:
             print("frame number is {}".format(time_step))
-            dqn.update_target_network(time_step, GAME_NAME)
+            dqn.update_target_network()
 
         # select the action
         action = dqn.epsilon_greedy(state, time_step)

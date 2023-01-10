@@ -14,4 +14,4 @@ cd /users/PAS0536/aminr8/game/RL
 #module spider cuda
 #module load cuda/10.1.168 miniconda3
 #source activate venv
-PYTHONPATH=. python3 runner.py -m "dqn" -u 2500 -g "SpaceInvaders-v4" -b 16
+PYTHONPATH=. python3 runner.py -m "transformer" -u 24 -g "Breakout-v4" -b 8
