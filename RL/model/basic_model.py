@@ -6,8 +6,9 @@ from keras.callbacks import CSVLogger
 
 
 class BasicModel:
-    def __init__(self, state_size, action_size, update_rate, sequence_state=1):
-        self.name = "Base"
+    def __init__(self, name, state_size, action_size, update_rate, model_path, sequence_state=1):
+        self.name = name
+        self.model_path = model_path
         # define the state size
         self.state_size = state_size
 
@@ -42,7 +43,7 @@ class BasicModel:
         # for selecting action using the epsilon-greedy policy.
 
     def epsilon_greedy(self, state, time_step):
-        epsilon = self.epsilon - math.floor(time_step / 5000) / 200 * 300
+        epsilon = self.epsilon - math.floor(time_step / 500) / 100
         if random.uniform(0, 1) < epsilon:
             return np.random.randint(self.action_size)
 
@@ -50,9 +51,15 @@ class BasicModel:
 
         return np.argmax(Q_values[0])
 
-    def update_target_network(self, time_step, GAME_NAME):
+    def load_model(self):
+        self.target_network.load_weights(self.model_path)
+        self.main_network.load_weights(self.model_path)
+        print("Model is loaded")
+
+    def update_target_network(self):
         self.target_network.set_weights(self.main_network.get_weights())
-        self.target_network.save('./checkpoints/{}_{}_{}.h5'.format(self.name, GAME_NAME, time_step))
+        self.target_network.save(self.model_path)
+        print("target_network is updated")
 
     def train(self, batch_size):
         minibatch = random.sample(self.replay_buffer, batch_size)
@@ -70,4 +77,4 @@ class BasicModel:
             Q_values[0][action] = target_Q
             # csv_logger = CSVLogger('./log/log.csv', append=True, separator=';')
             # train the main network
-            self.main_network.fit(state, Q_values, epochs=1, verbose=0)  # callbacks=[csv_logger]
+            self.main_network.fit(state, Q_values, epochs=2, verbose=0)  # callbacks=[csv_logger]

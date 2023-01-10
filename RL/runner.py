@@ -1,6 +1,8 @@
 import tensorflow as tf
 import argparse
 import gym
+import json
+import os
 import numpy as np
 from util.state_prepresentor import preprocess_state
 from model.model_factory import get_model
@@ -31,15 +33,28 @@ state_size = (80, 80, 1)
 action_size = env.action_space.n
 
 
+
 num_episodes = args.num_episodes
 num_time_steps = args.num_time_steps
 batch_size = args.batch_size
 update_rate = args.update_rate
 model = get_model(args.model)
 
-dqn = model(state_size, action_size, update_rate, args.sequence_state)
+file_path = f"{GAME_NAME}_{args.model}.json"
+model_path = './checkpoints/{}_{}.h5'.format(args.model, GAME_NAME)
+
+
+dqn = model(args.model, state_size, action_size, update_rate, model_path, args.sequence_state)
+if os.path.exists(model_path):
+    dqn.load_model()
+
 done = False
 time_step = 0
+dictionary = dict()
+
+if os.path.exists(file_path):
+    with open(file_path, 'r') as f:
+        dictionary = json.loads(f.read())
 
 # for each episode
 for i in range(num_episodes):
@@ -83,7 +98,13 @@ for i in range(num_episodes):
 
         # if the episode is done then print the return
         if done:
+            dictionary[i] = {
+                'reward': Return,
+                'time_step': time_step
+            }
             print('Episode: ', i, ',' 'Return', Return)
+            with open(file_path, "w") as outfile:
+                json.dump(dictionary, outfile)
             break
 
         if len(dqn.replay_buffer) > batch_size * args.sequence_state:
