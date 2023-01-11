@@ -1,11 +1,13 @@
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.python.keras import layers
+from tensorflow.keras import layers
 from tensorflow.python.keras.optimizers import adam_v2
 from model.basic_model import BasicModel
 
 import random
 import numpy as np
+
+print("TENSORFLOW V {}".format(tf.__version__))
 
 
 class PatchExtract(layers.Layer):
