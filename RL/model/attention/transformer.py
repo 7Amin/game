@@ -156,7 +156,7 @@ class Transformer(BasicModel):
         x = layers.Dense(512, activation='relu')(x)
         outputs = layers.Dense(self.action_size, activation="linear")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
-        model.compile(loss='mse', optimizer=tf.keras.optimizers.Adam(learning_rate=0.001))
+        model.compile(loss='mse', optimizer=tf.python.keras.optimizers.Adam(learning_rate=0.001))
         print(model.summary())
         return model
 
