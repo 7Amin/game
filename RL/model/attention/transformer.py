@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
+# from tensorflow.keras.optimizers import Adam
 from model.basic_model import BasicModel
 
 import random
@@ -155,8 +156,9 @@ class Transformer(BasicModel):
         x = layers.Dense(512, activation='relu')(x)
         outputs = layers.Dense(self.action_size, activation="linear")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
-        model.compile(loss='mse', optimizer='adam')
-        return model
+        model.compile(loss='mse', optimizer=tf.keras.optimizers.Adam(learning_rate=0.001))
+        print(model.summary())
+        return modelAdam
 
     def train(self, batch_size):
         super().train(batch_size=batch_size)
