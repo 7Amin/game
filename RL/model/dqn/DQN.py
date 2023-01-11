@@ -1,6 +1,5 @@
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Dense, Activation, Flatten, Conv2D
-from tensorflow.python.keras.optimizers import adam_v2
 
 from model.basic_model import BasicModel
 import random
@@ -29,7 +28,7 @@ class DQN(BasicModel):
         model.add(Dense(512, activation='relu'))
         model.add(Dense(self.action_size, activation='linear'))
 
-        model.compile(loss='mse', optimizer=adam_v2.Adam(learning_rate=0.001))
+        model.compile(loss='mse', optimizer='adam')
 
         return model
 
