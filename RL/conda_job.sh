@@ -11,6 +11,9 @@ module load python/3.9-2022.05
 module spider cuda
 module load cuda/11.5.2 miniconda3
 source activate venv_1
-pip install -r requirements.txt
+#pip install -r requirements.txt
+pip install gym[accept-rom-license, all]
 cd /users/PAS0536/aminr8/game/RL
 PYTHONPATH=. python3 runner.py -m "transformer" -u 24 -g "Breakout-v4" -b 8
+
+conda create -n venv_1 python=3.9
