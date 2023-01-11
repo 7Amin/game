@@ -158,7 +158,7 @@ class Transformer(BasicModel):
         model = keras.Model(inputs=inputs, outputs=outputs)
         model.compile(loss='mse', optimizer=tf.keras.optimizers.Adam(learning_rate=0.001))
         print(model.summary())
-        return modelAdam
+        return model
 
     def train(self, batch_size):
         super().train(batch_size=batch_size)
