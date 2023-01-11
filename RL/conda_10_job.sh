@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=PAS0536
-#SBATCH --job-name=transformer_Seaquest-v4
+#SBATCH --job-name=transformer_SpaceInvaders-v4
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
@@ -11,8 +11,8 @@ module load python/3.9-2022.05
 module spider cuda
 module load cuda/10.1.168 miniconda3
 source activate local
-pip install -r requirements.txt
-pip install gym[atari,accept-rom-license,all]
+#pip install -r requirements.txt
+#pip install gym[atari,accept-rom-license,all]
 cd /users/PAS0536/aminr8/game/RL
-PYTHONPATH=. python3 runner.py -m "transformer" -u 24 -g "Seaquest-v4" -b 8
+PYTHONPATH=. python3 runner.py -m "transformer" -u 24 -g "SpaceInvaders-v4" -b 8
 
