@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=PAS0536
-#SBATCH --job-name=transformer
+#SBATCH --job-name=dqn_Breakout-v4
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8

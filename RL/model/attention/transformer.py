@@ -153,7 +153,7 @@ class Transformer(BasicModel):
 
         x = layers.GlobalAvgPool1D()(x)
         x = layers.Dense(512, activation='relu')(x)
-        outputs = layers.Dense(self.action_size, activation="softmax")(x)
+        outputs = layers.Dense(self.action_size, activation="linear")(x)
         model = keras.Model(inputs=inputs, outputs=outputs)
         model.compile(loss='mse', optimizer='adam')
         return model
