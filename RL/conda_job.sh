@@ -14,4 +14,4 @@ source activate venv_1
 #pip install -r requirements.txt
 #pip install gym[atari,accept-rom-license,all]
 cd /users/PAS0536/aminr8/game/RL
-PYTHONPATH=. python3 runner.py -m "transformer" -u 24 -g "Breakout-v4" -b 8
+PYTHONPATH=. python3 runner.py -m "dqn" -u 24 -g "Breakout-v4" -b 8
