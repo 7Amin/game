@@ -5,3 +5,5 @@ n order to import ROMS, you need to download Roms.rar from the Atari 2600 VCS RO
 python -m atari_py.import_roms <path to folder>
 
 This should print out the names of ROMs as it imports them. The ROMs will be copied to your atari_py installation directory.
+
+pip install gym[atari,accept-rom-license,all]
