@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=PAS0536
-#SBATCH --job-name=dqn_Qbert-v4
+#SBATCH --job-name=dqn_Pong-v4
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
@@ -14,5 +14,5 @@ source activate local
 #pip install -r requirements.txt
 #pip install gym[atari,accept-rom-license,all]
 cd /users/PAS0536/aminr8/game/RL
-PYTHONPATH=. python3 runner.py -m "dqn" -u 24 -g "Qbert-v4" -b 8
+PYTHONPATH=. python3 runner.py -m "dqn" -u 24 -g "Pong-v4" -b 8
 
