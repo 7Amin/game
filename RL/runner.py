@@ -27,7 +27,7 @@ parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>
 parser.add_argument("-t", "--num_time_steps", type=int, default=200000, metavar='>= 0', help="Number of time steps")
 parser.add_argument("-u", "--update_rate", type=int, default=3, metavar='>= 0', help="Update Rate")
 parser.add_argument("-seq", "--sequence_state", type=int, default=1, metavar='>= 0', help="Sequence State")
-parser.add_argument("-g", "--game_name", type=str, default='Pong-v4',
+parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
@@ -45,6 +45,7 @@ GAME_NAME = args.game_name
 env = gym.make(GAME_NAME, render_mode="rgb_array")
 state_size = (80, 80, 1)
 action_size = env.action_space.n
+
 
 
 
@@ -66,12 +67,19 @@ done = False
 time_step = 0
 dictionary = dict()
 
+old_episode_number = 0
+
 if os.path.exists(file_path):
     with open(file_path, 'r') as f:
         dictionary = json.loads(f.read())
 
+    for data in dictionary:
+        if old_episode_number <= int(data):
+            old_episode_number = int(data)
+            time_step = dictionary[data]['time_step']
+
 # for each episode
-for i in range(num_episodes):
+for i in range(old_episode_number + 1, num_episodes):
 
     # set return to 0
     Return = 0
@@ -92,6 +100,12 @@ for i in range(num_episodes):
         if time_step % dqn.update_rate == 0:
             print("frame number is {}".format(time_step))
             dqn.update_target_network()
+            dictionary[i] = {
+                'reward': Return,
+                'time_step': time_step
+            }
+            with open(file_path, "w") as outfile:
+                json.dump(dictionary, outfile)
 
         # select the action
         action = dqn.epsilon_greedy(state, time_step)
