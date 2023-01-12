@@ -55,6 +55,7 @@ class BasicAxialModel(BasicModel):
         return torch.argmax(Q_values[0]).item()
 
     def update_target_network(self):
+        # self.target_network.load_state_dict(self.main_network.state_dict())
         self.save_model_main()
         self.load_model_target()
         # self.target_network.set_weights(self.main_network.get_weights())
