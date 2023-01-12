@@ -51,3 +51,4 @@ A.L.E: Arcade Learning Environment (version 0.8.0+919230b)
   logger.warn(
 /users/PAS0536/aminr8/.local/lib/python3.9/site-packages/gym/utils/passive_env_checker.py:233: DeprecationWarning: `np.bool8` is a deprecated alias for `np.bool_`.  (Deprecated NumPy 1.24)
   if not isinstance(terminated, (bool, np.bool8)):
+slurmstepd: error: *** JOB 22983509 ON o0718 CANCELLED AT 2023-01-12T15:03:37 DUE TO TIME LIMIT ***
