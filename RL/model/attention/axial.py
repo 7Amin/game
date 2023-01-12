@@ -111,6 +111,7 @@ class BasicAxialModel(BasicModel):
             # train the main network
             # self.main_network.fit(state, Q_values, epochs=2, verbose=0)  # callbacks=[csv_logger]
             loss = self.criterion(Q_hat_values, Q_values)
+            loss.backward()
             self.optimizer.zero_grad()
             self.optimizer.step()
 
