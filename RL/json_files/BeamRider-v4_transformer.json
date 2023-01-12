@@ -1,1 +1,1 @@
-{"0": {"reward": 572.0, "time_step": 2009}, "1": {"reward": 396.0, "time_step": 4790}, "2": {"reward": 308.0, "time_step": 6566}, "3": {"reward": 440.0, "time_step": 8693}}
+{"0": {"reward": 572.0, "time_step": 2009}, "1": {"reward": 396.0, "time_step": 4790}, "2": {"reward": 308.0, "time_step": 6566}, "3": {"reward": 440.0, "time_step": 8693}, "4": {"reward": 396.0, "time_step": 11382}, "5": {"reward": 352.0, "time_step": 13481}, "6": {"reward": 220.0, "time_step": 15613}, "7": {"reward": 176.0, "time_step": 17010}, "8": {"reward": 176.0, "time_step": 18336}}
