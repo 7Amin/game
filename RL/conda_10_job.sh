@@ -14,5 +14,5 @@ source activate local
 #pip install -r requirements.txt
 #pip install gym[atari,accept-rom-license,all]
 cd /users/PAS0536/aminr8/game/RL
-PYTHONPATH=. python3 runner.py -m "AxialAttentionWithoutPosition" -u 24 -g "BeamRider-v4" -b 8
+PYTHONPATH=. python3 runner.py -m "AxialAttentionWithoutPosition" -u 24 -g "Enduro-v4" -b 8
 
