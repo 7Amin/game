@@ -42,8 +42,11 @@ class BasicModel:
         # using the epsilon-greedy policy. So, now we define the function called epsilon_greedy
         # for selecting action using the epsilon-greedy policy.
 
+    def _get_epsilon(self, time_step):
+        return self.epsilon - math.floor(time_step / 1000) / 100
+
     def epsilon_greedy(self, state, time_step):
-        epsilon = self.epsilon - math.floor(time_step / 500) / 100
+        epsilon = self._get_epsilon(time_step)
         if random.uniform(0, 1) < epsilon:
             return np.random.randint(self.action_size)
 

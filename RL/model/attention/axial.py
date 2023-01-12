@@ -45,7 +45,7 @@ class BasicAxialModel(BasicModel):
         return state_tensor
 
     def epsilon_greedy(self, state, time_step):
-        epsilon = self.epsilon - math.floor(time_step / 500) / 100
+        epsilon = self._get_epsilon(time_step)
         if random.uniform(0, 1) < epsilon:
             return np.random.randint(self.action_size)
 

@@ -25,9 +25,9 @@ if gpus:
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument("-e", "--num_episodes", type=int, default=250000, metavar='>= 0', help="Number of Episodes")
 parser.add_argument("-t", "--num_time_steps", type=int, default=200000, metavar='>= 0', help="Number of time steps")
-parser.add_argument("-u", "--update_rate", type=int, default=3, metavar='>= 0', help="Update Rate")
+parser.add_argument("-u", "--update_rate", type=int, default=24, metavar='>= 0', help="Update Rate")
 parser.add_argument("-seq", "--sequence_state", type=int, default=1, metavar='>= 0', help="Sequence State")
-parser.add_argument("-g", "--game_name", type=str, default='Breakout-v4',
+parser.add_argument("-g", "--game_name", type=str, default='SpaceInvaders-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
