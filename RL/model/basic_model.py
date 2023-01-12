@@ -52,14 +52,26 @@ class BasicModel:
         return np.argmax(Q_values[0])
 
     def load_model(self):
-        self.target_network.load_weights(self.model_path)
-        self.main_network.load_weights(self.model_path)
+        self.load_model_target()
+        self.load_model_main()
         print("Model is loaded")
 
     def update_target_network(self):
         self.target_network.set_weights(self.main_network.get_weights())
         self.target_network.save(self.model_path)
         print("target_network is updated")
+
+    def save_model_target(self):
+        self.target_network.save(self.model_path)
+
+    def save_model_main(self):
+        self.main_network.save(self.model_path)
+
+    def load_model_target(self):
+        self.target_network.load_weights(self.model_path)
+
+    def load_model_main(self):
+        self.main_network.load_weights(self.model_path)
 
     def train(self, batch_size):
         minibatch = random.sample(self.replay_buffer, batch_size)
