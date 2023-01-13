@@ -1,1 +1,82 @@
-{"1": {"reward": 55.0, "time_step": 454}, "2": {"reward": 200.0, "time_step": 1304}, "3": {"reward": 75.0, "time_step": 1680}, "4": {"reward": 240.0, "time_step": 2521}, "5": {"reward": 95.0, "time_step": 3072}}
+{
+    "1": {
+        "reward": 55.0,
+        "time_step": 454
+    },
+    "2": {
+        "reward": 200.0,
+        "time_step": 1304
+    },
+    "3": {
+        "reward": 75.0,
+        "time_step": 1680
+    },
+    "4": {
+        "reward": 240.0,
+        "time_step": 2521
+    },
+    "5": {
+        "reward": 200.0,
+        "time_step": 3334
+    },
+    "6": {
+        "reward": 215.0,
+        "time_step": 4115
+    },
+    "7": {
+        "reward": 30.0,
+        "time_step": 4683,
+        "start_datetime": "2023-01-13 11:52:12.698481",
+        "end_datetime": "2023-01-13 11:58:37.378913",
+        "finished": true
+    },
+    "8": {
+        "reward": 320.0,
+        "time_step": 5715,
+        "start_datetime": "2023-01-13 11:58:37.379499",
+        "end_datetime": "2023-01-13 12:10:10.638791",
+        "finished": true
+    },
+    "9": {
+        "reward": 135.0,
+        "time_step": 6335,
+        "start_datetime": "2023-01-13 12:10:10.639242",
+        "end_datetime": "2023-01-13 12:17:13.638622",
+        "finished": true
+    },
+    "10": {
+        "reward": 110.0,
+        "time_step": 7051,
+        "start_datetime": "2023-01-13 12:17:13.639077",
+        "end_datetime": "2023-01-13 12:25:08.087942",
+        "finished": true
+    },
+    "11": {
+        "reward": 35.0,
+        "time_step": 7513,
+        "start_datetime": "2023-01-13 12:25:08.088575",
+        "end_datetime": "2023-01-13 12:30:21.121057",
+        "finished": true
+    },
+    "12": {
+        "reward": 125.0,
+        "time_step": 8139,
+        "start_datetime": "2023-01-13 12:30:21.121607",
+        "end_datetime": "2023-01-13 12:37:01.315636",
+        "finished": true
+    },
+    "13": {
+        "reward": 110.0,
+        "time_step": 8847,
+        "start_datetime": "2023-01-13 12:37:01.316132",
+        "end_datetime": "2023-01-13 12:44:01.520537",
+        "finished": true
+    },
+    "14": {
+        "reward": 155.0,
+        "time_step": 9547,
+        "start_datetime": "2023-01-13 12:44:01.521068",
+        "end_datetime": "2023-01-13 12:51:39.698538",
+        "finished": true
+    }
+}

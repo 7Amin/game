@@ -4,6 +4,7 @@ import gym
 import json
 import os
 import numpy as np
+from datetime import datetime
 from util.state_prepresentor import preprocess_state
 from model.model_factory import get_model
 from keras import backend as K
@@ -31,7 +32,7 @@ parser.add_argument("-g", "--game_name", type=str, default='SpaceInvaders-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
-parser.add_argument("-m", "--model", type=str, default="AxialAttentionWithoutPosition",
+parser.add_argument("-m", "--model", type=str, default="transformer",
                     choices=["dqn",
                              "transformer",
                              "AxialAttentionWithoutPosition",
@@ -89,6 +90,7 @@ for i in range(old_episode_number + 1, num_episodes):
 
     # set return to 0
     Return = 0
+    start_datetime = str(datetime.now())
 
     # preprocess the game screen
     state = preprocess_state(env.reset()[0])
@@ -108,10 +110,13 @@ for i in range(old_episode_number + 1, num_episodes):
             dqn.update_target_network()
             dictionary[i] = {
                 'reward': Return,
-                'time_step': time_step
+                'time_step': time_step,
+                'start_datetime': start_datetime,
+                'end_datetime': str(datetime.now()),
+                'finished': False,
             }
             with open(file_path, "w") as outfile:
-                json.dump(dictionary, outfile)
+                json.dump(dictionary, outfile, indent=4)
 
         # select the action
         action = dqn.epsilon_greedy(state, time_step)
@@ -134,11 +139,14 @@ for i in range(old_episode_number + 1, num_episodes):
         if done:
             dictionary[i] = {
                 'reward': Return,
-                'time_step': time_step
+                'time_step': time_step,
+                'start_datetime': start_datetime,
+                'end_datetime': str(datetime.now()),
+                'finished': True,
             }
             print('Episode: ', i, ',' 'Return', Return)
             with open(file_path, "w") as outfile:
-                json.dump(dictionary, outfile)
+                json.dump(dictionary, outfile, indent=4)
             break
 
         if len(dqn.replay_buffer) > batch_size * args.sequence_state:
