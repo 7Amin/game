@@ -165,5 +165,12 @@
         "start_datetime": "2023-01-13 12:56:32.228535",
         "end_datetime": "2023-01-13 13:31:17.908129",
         "finished": true
+    },
+    "41": {
+        "reward": 0.0,
+        "time_step": 28392,
+        "start_datetime": "2023-01-16 11:14:18.244090",
+        "end_datetime": "2023-01-16 11:14:38.801266",
+        "finished": false
     }
 }
