@@ -167,10 +167,38 @@
         "finished": true
     },
     "41": {
-        "reward": 0.0,
-        "time_step": 28392,
+        "reward": 210.0,
+        "time_step": 29209,
         "start_datetime": "2023-01-16 11:14:18.244090",
-        "end_datetime": "2023-01-16 11:14:38.801266",
+        "end_datetime": "2023-01-16 11:46:15.035743",
+        "finished": true
+    },
+    "42": {
+        "reward": 265.0,
+        "time_step": 29937,
+        "start_datetime": "2023-01-16 11:46:15.036443",
+        "end_datetime": "2023-01-16 12:19:45.807151",
+        "finished": true
+    },
+    "43": {
+        "reward": 285.0,
+        "time_step": 30925,
+        "start_datetime": "2023-01-16 14:13:08.198011",
+        "end_datetime": "2023-01-16 14:49:05.053889",
+        "finished": true
+    },
+    "44": {
+        "reward": 180.0,
+        "time_step": 31730,
+        "start_datetime": "2023-01-16 14:49:05.054594",
+        "end_datetime": "2023-01-16 15:17:59.520055",
+        "finished": true
+    },
+    "45": {
+        "reward": 100.0,
+        "time_step": 32424,
+        "start_datetime": "2023-01-16 15:17:59.520793",
+        "end_datetime": "2023-01-16 15:42:49.256967",
         "finished": false
     }
 }

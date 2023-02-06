@@ -1,4 +1,6 @@
 import numpy as np
+import cv2
+
 
 color = np.array([210, 164, 74]).mean()
 
@@ -17,8 +19,12 @@ def preprocess_state(state):
     # normalize the image
     # cv2.imwrite("state1.png", np.resize(image, (630, 480)))
 
-    image = image.reshape(80, 80, 1)
-    image = (image - 128) / 128 - 1
+    down_width = 128
+    down_height = 128
+    down_points = (down_width, down_height)
+    image = cv2.resize(image[0], down_points, interpolation=cv2.INTER_LINEAR)
+    image = image.reshape(down_width, down_width, 1)
+    image = (image - 128.0) / 128.0
 
     # reshape the image
     image = np.expand_dims(image, axis=0)

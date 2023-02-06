@@ -6,6 +6,6 @@ python -m atari_py.import_roms <path to folder>
 
 This should print out the names of ROMs as it imports them. The ROMs will be copied to your atari_py installation directory.
 
-pip install gym[atari,accept-rom-license,all]
+pip3 install gym[atari,accept-rom-license,all]
 
 conda install -c conda-forge pyglet 

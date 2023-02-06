@@ -32,11 +32,11 @@ parser.add_argument("-g", "--game_name", type=str, default='SpaceInvaders-v4',
                     choices=["Breakout-v4", "BeamRider-v4", "Enduro-v4", "Pong-v4", "Qbert-v4",
                              "Seaquest-v4", "SpaceInvaders-v4"], help="Choose from list")
 parser.add_argument("-b", "--batch_size", type=int, default=8, metavar='>= 0', help="Batch size")
-parser.add_argument("-m", "--model", type=str, default="dqn",
+parser.add_argument("-m", "--model", type=str, default="AxialAttentionWithoutPosition",
                     choices=["dqn",
                              "transformer",
                              "AxialAttentionWithoutPosition",
-                             # "AxialAttentionPosition",
+                             # "AxialAttentionPosition",0.
                              # "AxialAttentionPositionGate"
                              ],
                     help="Number of model")
@@ -52,8 +52,6 @@ GAME_NAME = args.game_name
 env = gym.make(GAME_NAME, render_mode="rgb_array")
 state_size = (80, 80, 1)
 action_size = env.action_space.n
-
-
 
 
 num_episodes = args.num_episodes

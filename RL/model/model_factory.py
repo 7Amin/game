@@ -1,4 +1,5 @@
 from model.dqn.DQN import DQN
+import torch
 from model.attention.transformer import Transformer
 from model.attention.axial import AxialAttentionWithoutPositionModel,\
     AxialAttentionPositionModel, AxialAttentionPositionGateModel

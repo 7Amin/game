@@ -43,7 +43,7 @@ class BasicModel:
         # for selecting action using the epsilon-greedy policy.
 
     def _get_epsilon(self, time_step):
-        return self.epsilon - math.floor(time_step / 1000) / 100
+        return self.epsilon - math.floor(time_step / 1000) / 1000
 
     def epsilon_greedy(self, state, time_step):
         epsilon = self._get_epsilon(time_step)
